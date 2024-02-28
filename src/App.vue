@@ -5,9 +5,9 @@
         <div v-for="(libro, index) in libros" :key="libro.id" :class="['carousel-item', { 'active': index === currentIndex }]">
           <img :src="libro.imagen" class="d-block w-100" :alt="libro.nombre" style="max-height: 400px;">
           <div class="carousel-caption d-none d-md-block">
-            <h5>{{ libro.nombre }}</h5>
+            <h5 >{{ libro.nombre }}</h5>
             <p>{{ libro.autor }}</p>
-            <p>{{ formatDate(libro.publicacion) }}</p>
+            <p>{{ libro.createdAt }}</p>
           </div>
         </div>
       </div>
@@ -55,6 +55,9 @@ export default {
     formatDate(dateString) {
       const date = new Date(dateString);
       return date.toLocaleDateString(); // Formatea la fecha como una cadena legible
+
+
+      
     }
   }
 };

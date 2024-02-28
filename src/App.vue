@@ -92,9 +92,7 @@
                   <b-form-group label="Autor:" label-for="autor-input">
                     <b-form-input id="autor-input" v-model="libroActual.autor" required></b-form-input>
                   </b-form-group>
-                  <b-form-group label="Fecha de Publicación:" label-for="publicacion-input">
-                    <b-form-input id="publicacion-input" v-model="libroActual.createdAt" type="date"></b-form-input>
-                  </b-form-group>
+
                   <b-form-group label="Imagen del libro:" label-for="imagen-file-input">
                     <b-form-file id="imagen-file-input" @change="convertirImagenABase64($event, false)"></b-form-file>
                   </b-form-group>
@@ -144,7 +142,6 @@ export default {
         id: null,
         nombre: "",
         autor: "",
-        createdAt: "",
         imagen: "",
       },
     };
@@ -202,25 +199,14 @@ export default {
     },
     onScroll() {
 
-      // Obtiene la posición actual del scroll
-      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-      console.log(currentScrollPosition);
 
-      // La función abs para tener valores absolutos y se delimita con un offset o bien llamado 
-      // margen para que el valor de la posición sea después de desplazarce y no desde que uno se desplaza
-      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
-        return;
-      }
-      // aqui determinamos si la posición es mayor a la posición anterior. Entonces, si lo es, mostramos el elemento.
-      this.showElement = currentScrollPosition < this.lastScrollPosition;
-      //if is true, then we hide the element and do a console.log
-      if (this.showElement) {
-        console.log('hide');
+      //hide the carousel when scrolling down over 500px
+      if (window.scrollY > 500) {
+        this.showElement = false;
       } else {
-        console.log('show');
+        this.showElement = true;
       }
-      //  
-      this.lastScrollPosition = currentScrollPosition;
+
     },
     convertirImagenABase64(event, esEdicion) {
       if (event.target.files.length > 0) {
